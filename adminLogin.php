@@ -9,20 +9,17 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="">
-      <!-- <h1>Hello Admin</h1> -->
+    <form action="adminloginprocess.php" method="POST">
       <h1>Admin Login</h1>
       <div class="input-box">
-        <input type="text" placeholder="Username" required>
+        <input type="text" name="username" placeholder="Username" required>
         <i class='bx bxs-user'></i>
       </div>
       <div class="input-box">
-        <input type="password" placeholder="Password" required>
-        <i class='bx bxs-lock-alt' ></i>
+        <input type="password" name="password" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
       </div>
-
-      <a href="admin_dashboard.php" class="login">Login</a>
-
+      <button type="submit" class="login">Login</button>
     </form>
   </div>
 </body>

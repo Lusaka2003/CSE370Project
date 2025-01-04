@@ -1,63 +1,68 @@
+<?php
+session_start();
+
+include('connect.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $amount_paid = $_POST['amount_paid'];
+    $card_no = $_POST['card_no'] ? $_POST['card_no'] : null;
+    $name_on_card = $_POST['name_on_card'] ? $_POST['name_on_card'] : null;
+    $paid_by_cash = isset($_POST['paid_by_cash']) ? 1 : 0;
+    $paid_by_card = isset($_POST['paid_by_card']) ? 1 : 0;
+
+    // Insert payment into database
+    $query = "INSERT INTO payment (Amount_Paid, Card_No, Name_On_Card, Paid_By_Cash, Paid_By_Card) 
+              VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("issii", $amount_paid, $card_no, $name_on_card, $paid_by_cash, $paid_by_card);
+    
+    if ($stmt->execute()) {
+        echo "<p class='success'>Payment successfully processed!</p>";
+    } else {
+        echo "<p class='error'>Error processing payment.</p>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 50px;
-        }
-        form {
-            width: 300px;
-            margin: 0 auto;
-        }
-        label {
-            font-weight: bold;
-        }
-        .paybtn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-        }
-        .back-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .back-link a {
-            text-decoration: none;
-            color: blue;
-        }
-    </style>
+    <link rel="stylesheet" href="stylepayment.css"> 
 </head>
 <body>
-  <form action="process_payment.php" method="post">
-    <h1>Payment</h1>
-    <label for="card_name"><b>Cardholder Name</b></label><br>
-    <input type="text" placeholder="Name on Card" name="card_name" id="card_name" required><br><br>
+    <div class="container">
+        <h2>Make a Payment</h2>
 
-    <label for="card_number"><b>Card Number</b></label><br>
-    <input type="text" placeholder="Card Number" name="card_number" id="card_number" pattern="\d{16}" required><br><br>
+        <form action="payment.php" method="POST">
+            <label for="amount_paid">Amount Paid:</label>
+            <input type="number" id="amount_paid" name="amount_paid" required>
 
-    <label for="expiry_date"><b>Expiry Date</b></label><br>
-    <input type="month" name="expiry_date" id="expiry_date" required><br><br>
+            <label for="card_no">Card Number:</label>
+            <input type="text" id="card_no" name="card_no">
 
-    <label for="cvv"><b>CVV</b></label><br>
-    <input type="text" placeholder="CVV" name="cvv" id="cvv" pattern="\d{3}" required><br><br>
+            <label for="name_on_card">Name on Card:</label>
+            <input type="text" id="name_on_card" name="name_on_card">
 
-    <label for="amount"><b>Payment Amount</b></label><br>
-    <input type="number" placeholder="Amount" name="amount" id="amount" required><br><br>
+            <div class="checkbox-group">
+                <label for="paid_by_cash">
+                    <input type="checkbox" id="paid_by_cash" name="paid_by_cash">
+                    Pay by Cash
+                </label>
+                <label for="paid_by_card">
+                    <input type="checkbox" id="paid_by_card" name="paid_by_card">
+                    Pay by Card
+                </label>
+            </div>
 
-    <button type="submit" class="paybtn">Make Payment</button>
-  </form>
+            <input type="submit" value="Submit Payment">
+        </form>
 
-  <div class="back-link">
-    <p><a href="index.php">Back to Login</a></p>
-  </div>
+        <div class="footer">
+            <p>Thank you for choosing our car rental service!</p>
+        </div>
+    </div>
 </body>
 </html>

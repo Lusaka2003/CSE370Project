@@ -52,9 +52,13 @@
             </div>
         </section>
     <section class=car_pictures>
+        <br>
+        <a href="sortprice.php" style="text-decoration: none;">
+    <h1 class="rentnow" style="color: green; text-align: center;">Sort by Price</h1>
+    </a>
     <br>
 
-    <a href="payment.php" style="text-decoration: none;">
+    <a href="rentnow.php" style="text-decoration: none;">
     <h1 class="rentnow" style="color: green; text-align: center;">RENT NOW</h1>
 </a>
     <br>

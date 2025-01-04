@@ -1,70 +1,106 @@
 <?php
-require_once "connect.php";
+include "connect.php"; 
 
-if (isset($_POST["submit"])) {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
+$conn = new mysqli($servername, $username, $password);
+if ($conn->connect_error) {
+    die("Connection Failed: ". $conn->connect_error);
+}else{
+    // echo "Connection Established";
+    mysqli_select_db($conn, $dbname);
+}
+
+$name = $phone = $address = $license = $email = $date_of_birth = $password = $confirm_password = "";
+$nameErr = $phoneErr = $addressErr = $licenseErr = $emailErr = $date_of_birthErr = $passwordErr = $confirm_passwordErr = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Capture the form data
+    $name = $_POST['name'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     $license = $_POST['license'];
+    $email = $_POST['email'];
     $date_of_birth = $_POST['date_of_birth'];
-    $password = $_POST["password"];
-    $passwordRepeat = $_POST["repeat_password"];
+    $password = $_POST['psw'];
+    $confirm_password = $_POST['psw-repeat'];
 
-    // Hash password
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-    // Array to store error messages
-    $errors = array();
-
-    // Check if required fields are empty
-    if (empty($name) || empty($email) || empty($phone) || empty($password) || empty($passwordRepeat)) {
-        array_push($errors, "These fields are required");
+    // Validate the inputs
+    if (empty($name)) {
+        $nameErr = "Name is required";
+    } elseif (!preg_match("/^[a-zA-Z ]+$/", $name)) {
+        $nameErr = "Name should only contain letters and spaces";
     }
 
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        array_push($errors, "Email is not valid");
-    }
-
-    // Check password length
-    if (strlen($password) < 6) {
-        array_push($errors, "Password must be at least 6 characters long");
-    }
-
-    // Check if passwords match
-    if ($password !== $passwordRepeat) {
-        array_push($errors, "Passwords do not match");
-    }
-
-    // Check if email already exists in the database
-    $sql = "SELECT * FROM customer WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    $rowCount = mysqli_num_rows($result);
-    
-    if ($rowCount > 0) {
-        array_push($errors, "Email already exists!");
-    }
-
-    // If there are errors, display them
-    if (count($errors) > 0) {
-        foreach ($errors as $error) {
-            echo "<div class='error-msg'>$error</div>";
-        }
+    if (empty($phone)) {
+        $phoneErr = "Phone number is required";
+    } elseif (!preg_match("/^[0-9]{11}$/", $phone)) { // Checks for exactly 11 digits
+        $phoneErr = "Phone number must be exactly 11 digits";
     } else {
-        $sql = "INSERT INTO customer (name, email, phone, address, license_no, date_of_birth, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_stmt_init($conn);
-        if (mysqli_stmt_prepare($stmt, $sql)) {
-            // Bind parameters to the prepared statement
-            mysqli_stmt_bind_param($stmt, "sssssss", $name, $email, $phone, $address, $license, $date_of_birth, $passwordHash);
-            if (mysqli_stmt_execute($stmt)) {
-              header("Location: login.php");
-              exit();
-            } else {
-                echo "<div class='error-msg'>Something went wrong while registering your account.</div>";
-            }
+        // Check if phone number exists
+        $phone_check_query = "SELECT * FROM customer WHERE phone='$phone'";
+        $result = mysqli_query($conn, $phone_check_query);
+        if (mysqli_num_rows($result) > 0) {
+            $phoneErr = "Phone number is already registered";
+        }
+    }
+
+    if (empty($address)) {
+        $addressErr = "Address is required";
+    }
+
+    if (empty($license)) {
+        $licenseErr = "License number is required";
+    }
+
+    if (empty($email)) {
+        $emailErr = "Email is required";
+    } else {
+        $email_check_query = "SELECT * FROM customer WHERE email='$email'";
+        $result = mysqli_query($conn, $email_check_query);
+        if (mysqli_num_rows($result) > 0) {
+            $emailErr = "Email is already registered";
+        }
+    }
+    // Validate Date of Birth: Age must be above 18
+    if (empty($date_of_birth)) {
+        $date_of_birthErr = "Date of birth is required";
+    } else {
+        $dob = new DateTime($date_of_birth);
+        $today = new DateTime();
+        $age = $today->diff($dob)->y;
+        if ($age < 18) {
+            $date_of_birthErr = "You must be at least 18 years old";
+        }
+    }
+
+    // Validate Password: Must be at least 6 characters long and contain both letters and numbers
+    if (empty($password)) {
+        $passwordErr = "Password is required";
+    } elseif (strlen($password) < 6) {
+        $passwordErr = "Password must be at least 6 characters";
+    } elseif (!preg_match("/[a-zA-Z]/", $password) || !preg_match("/[0-9]/", $password)) {
+        $passwordErr = "Password must contain both letters and numbers";
+    }
+
+    if ($password != $confirm_password) {
+        $confirm_passwordErr = "Passwords do not match";
+    }
+
+    // If there are no errors, insert into the database
+    if (empty($nameErr) && empty($phoneErr) && empty($addressErr) && empty($licenseErr) && empty($emailErr) && empty($date_of_birthErr) && empty($passwordErr) && empty($confirm_passwordErr)) {
+        // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare the SQL query to insert data
+        $query = "INSERT INTO Customer (Name, phone, address, license_no, email, date_of_birth, password) 
+                  VALUES ('$name', '$phone', '$address', '$license', '$email', '$date_of_birth', '$password')";
+
+        // Execute the query
+        if (mysqli_query($conn, $query)) {
+            echo "Registration successful!";
+            // Redirect to login page after successful registration
+            header("Location: login.php");
+            exit();
         } else {
-            die("Something went wrong with the SQL query.");
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
         }
     }
 }
@@ -74,51 +110,58 @@ if (isset($_POST["submit"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Registration</title>
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Please fill up this form to register</h1>
-            <img src="auto-car-logo-template-vector-icon.jpg" alt="Logo" class="header-image">
-        </div>
 
-        <form action="registration.php" method="post">
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="address" placeholder="Address" required>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="license" placeholder="License No" required>
-            </div>
-            <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="repeat_password" placeholder="Repeat Password" required>
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control" name="date_of_birth" placeholder="Date of Birth" required>
-            </div>
-            <div class="form-btn">
-                <input type="submit" class="btn btn-primary" value="Register" name="submit">
-            </div>
-        </form>
-        
-        <div class="signin">
-            <p>Already Registered? <a href="login.php">Login Here</a></p>
-        </div>
-    </div>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  <div class="container">
+    <header class="header">
+        <h1 class="title">Please fill up this form to register</h1>
+        <img src="auto-car-logo-template-vector-icon.jpg" alt="Logo" class="header-image">
+    </header>
+    <hr>
+    <label for="name"><b>Name</b></label><br>
+    <input type="text" placeholder="Name" name="name" id="name" value="<?php echo $name; ?>" required>
+    <span class="error"><?php echo $nameErr; ?></span><br>
+
+    <label for="phone"><b>Phone number:</b></label><br>
+    <input type="tel" placeholder="Phone Number" id="phone" name="phone" pattern=" /(^(\+8801|8801|01))[1|3-9]{1}(\d){8}$/" value="<?php echo $phone; ?>" required>
+    <span class="error"><?php echo $phoneErr; ?></span><br>
+
+    <label for="address"><b>Address</b></label><br>
+    <input type="text" placeholder="Address" name="address" id="address" value="<?php echo $address; ?>" required><br>
+    <span class="error"><?php echo $addressErr; ?></span>
+
+    <label for="license"><b>License Number</b></label><br>
+    <input type="text" placeholder="License Number" name="license" id="license" value="<?php echo $license; ?>" required><br>
+    <span class="error"><?php echo $licenseErr; ?></span>
+
+    <label for="email"><b>Email</b></label><br>
+    <input type="email" placeholder="Enter Email" name="email" id="email" value="<?php echo $email; ?>" required>
+    <span class="error"><?php echo $emailErr; ?></span><br>
+
+    <label for="date_of_birth"><b>Date of Birth</b></label><br>
+    <input type="date" placeholder="Enter date of birth" id="date_of_birth" name="date_of_birth" value="<?php echo $date_of_birth; ?>" required> 
+    <span class="error"><?php echo $date_of_birthErr; ?></span><br>
+
+    <label for="psw"><b>Password</b></label><br>
+    <input type="password" placeholder="Enter Password" name="psw" id="psw" required><br>
+    <span class="error"><?php echo $passwordErr; ?></span><br>
+
+    <label for="psw-repeat"><b>Repeat Password</b></label><br>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+    <span class="error"><?php echo $confirm_passwordErr; ?></span><br><hr>
+
+    <button type="submit" class="registerbtn">Register</button>
+  </div>
+
+  <div class="container signin">
+    <p>Already have an account? <a href="login.php">Sign in </a></p>
+  </div>
+</form>
+
 </body>
 </html>

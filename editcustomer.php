@@ -1,5 +1,5 @@
 <?php
-include('db_config.php');
+include('connect.php');
 
 // Fetch customer details to edit
 if (isset($_GET['id'])) {
@@ -16,16 +16,16 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    // $password = $_POST['password'];
     $dob = $_POST['dob'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     $license_no = $_POST['license_no'];
 
-    $updateQuery = "UPDATE Customer SET 
+    $updateQuery = "UPDATE customer SET 
                     Name = :name, 
                     email = :email, 
-                    Password = :password, 
+                    -- Password = :password, 
                     date_of_birth = :dob, 
                     phone = :phone, 
                     address = :address, 
@@ -36,14 +36,14 @@ if (isset($_POST['update'])) {
     $updateStmt->bindParam(':id', $id);
     $updateStmt->bindParam(':name', $name);
     $updateStmt->bindParam(':email', $email);
-    $updateStmt->bindParam(':password', $password);
+    // $updateStmt->bindParam(':password', $password);
     $updateStmt->bindParam(':dob', $dob);
     $updateStmt->bindParam(':phone', $phone);
     $updateStmt->bindParam(':address', $address);
     $updateStmt->bindParam(':license_no', $license_no);
     $updateStmt->execute();
     
-    header("Location: manage_customers.php"); // Redirect to manage page after update
+    header("Location: admin_dashboard.php"); // Redirect to manage page after update
     exit();
 }
 ?>
@@ -64,8 +64,8 @@ if (isset($_POST['update'])) {
         <input type="text" name="name" value="<?php echo $customer['Name']; ?>" required><br><br>
         <label>Email: </label>
         <input type="email" name="email" value="<?php echo $customer['email']; ?>" required><br><br>
-        <label>Password: </label>
-        <input type="password" name="password" value="<?php echo $customer['Password']; ?>" required><br><br>
+        <!-- <label>Password: </label>
+        <input type="password" name="password" value="<?php echo $customer['Password']; ?>" required><br><br> -->
         <label>Date of Birth: </label>
         <input type="date" name="dob" value="<?php echo $customer['date_of_birth']; ?>" required><br><br>
         <label>Phone: </label>

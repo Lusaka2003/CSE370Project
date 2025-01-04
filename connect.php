@@ -1,14 +1,11 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "carrentalmanagementsystem";
+  $db_server = "localhost";
+  $db_user = "root";
+  $db_pass = "";
+  $db_name = "carrentalmanagementsystem";
 
-$conn = new mysqli($servername, $username, $password);
-if ($conn->connect_error) {
-    die("Connection Failed: ". $conn->connect_error);
-}else{
-    // echo "Connection Established";
-    mysqli_select_db($conn, $dbname);
-}
+  $conn = new mysqli($db_server, $db_user, $db_pass, $db_name);
+  if ($conn->connect_error) {
+      die("Connection Failed: ". $conn->connect_error);
+  }
 ?>

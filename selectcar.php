@@ -10,7 +10,8 @@
     
 <section class="cars">
             <div class="car_box">
-                <h1>Car List</h1>
+                <h1>Avialable Car List</h1>
+                <h1>Copy the license plate of the car you want rent and proceed to Rent Now</h1>
                 <table class="car_table">
                     <thead>
                         <tr>
@@ -20,14 +21,14 @@
                             <th>Car Model</th>
                             <th>Car Brand</th>
                             <th>Color</th>
-                            <th>Car Availability</th>
+                            <!-- <th>Car Availability</th> -->
                             <th>Rent Per Day</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         require_once("connect.php");
-                        $sql = "SELECT * FROM car";
+                        $sql = "SELECT * FROM car where Status='Available'";
                         $result = mysqli_query($conn, $sql);
                         if(mysqli_num_rows($result) > 0){
                             while($row = mysqli_fetch_array($result)){
@@ -39,7 +40,7 @@
                             <td><?php echo $row["Model"]; ?></td>
                             <td><?php echo $row["Brand"]; ?></td>
                             <td><?php echo $row["Color"]; ?></td>
-                            <td><?php echo $row["Status"]; ?></td>
+                            <!-- <td><?php echo $row["Status"]; ?></td> -->
                             <td><?php echo $row["RentPerDay"]; ?></td>
                         </tr>
                         <?php

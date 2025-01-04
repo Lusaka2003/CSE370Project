@@ -110,7 +110,9 @@ main {
 .editcustomer{
     text-align: center;
 }
-
+.deletecustomer{
+    text-align: center;
+}
 .car_box {
     background-color: white;
     border-radius: 8px;
@@ -191,6 +193,12 @@ main {
     }
 }
 .editcar{
+    text-align: center;
+}
+.deletecar{
+    text-align: center;
+}
+.addcar{
     text-align: center;
 }
 .review_box {

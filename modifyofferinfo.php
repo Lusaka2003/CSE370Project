@@ -1,31 +1,33 @@
 <?php
 include "connect.php";
 
-$promo_code = $description = $promo_type = $percentage = $discounted_amount = "";
-$promo_codeErr = $descriptionErr = $promo_typeErr = $percentageErr = $discounted_amountErr = "";
-
+// Declare variables
+$Promo_Code=$Description=$Promo_Type=$Percentage=$Discounted_Amount="";
+$Promo_CodeErr=$DescriptionErr=$Promo_TypeErr=$PercentageErr=$Discounted_AmountErr="";
+// If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $promo_code = $_POST['promo_code'];
-    $description = $_POST['description'];
-    $promo_type = $_POST['promo_type'];
-    $percentage = $_POST['percentage'];
-    $discounted_amount = $_POST['discounted_amount'];
+    // Capture the form data
+    $Promo_Code = $_POST['Promo_Code'];
+    $Description = $_POST['Description'];
+    $Promo_Type = $_POST['Promo_Type'];
+    $Percentage = $_POST['Percentage'];
+    $Discounted_Amount = $_POST['Discounted_Amount'];
 
-    // Validate that promo_code is not empty
-    if (empty($promo_code)) {
-        $promo_codeErr = "Promo code is required.";
+    // Validate that USER_ID is not empty
+    if (empty($Promo_Code)) {
+        $Promo_CodeErr = "Promo_Code is required.";
     }
 
     // If there are no validation errors, proceed to update the data
-    if (empty($promo_codeErr) && empty($descriptionErr) && empty($promo_typeErr) && empty($percentageErr) && empty($discounted_amountErr)) {
-        // Prepare SQL query to update offer data based on promo_code
-        $query = "UPDATE offer_details 
-                  SET Description = '$description', Promo_Type = '$promo_type', Percentage = '$percentage', Discounted_Amount = '$discounted_amount' 
-                  WHERE Promo_Code = '$promo_code'";
+    if (empty($Promo_CodeErr) && empty($StatusErr) ) {
+        // Prepare SQL query to update customer data based on USER_ID
+        $query = "UPDATE offer_details
+                  SET Description = '$Description', Promo_Type = '$Promo_Type',Percentage = '$Percentage', Discounted_Amount = '$Discounted_Amount'
+                  WHERE Promo_Code = '$Promo_Code'";
 
         if (mysqli_query($conn, $query)) {
-            echo "Offer information updated successfully!";
-            // Redirect back to the dashboard
+            echo "Offer Details updated successfully!";
+            // Redirect back to the dashboard or wherever you want after the update
             header("Location: admin_dashboard.php");
             exit();
         } else {
@@ -34,18 +36,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Check if promo_code is provided for the form to update
-if (isset($_POST['promo_code'])) {
-    $promo_code = $_POST['promo_code'];
-    $sql = "SELECT * FROM offer_details WHERE Promo_Code = '$promo_code'";
+// Check if USER_ID is provided for the form (via POST) to update
+if (isset($_POST['Promo_Code'])) {
+    $Promo_Code = $_POST['Promo_Code'];
+    $sql = "SELECT * FROM offer_details WHERE Promo_Code = '$Promo_Code'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         // Pre-fill the form with the existing data
-        $description = $row['Description'];
-        $promo_type = $row['Promo_Type'];
-        $percentage = $row['Percentage'];
-        $discounted_amount = $row['Discounted_Amount'];
+        $Promo_Code=$row['Promo_Code'];
+        $Description=$row['Description'];
+        $Promo_Typee=$row['Promo$Promo_Typee'];
+        $Percentage=$row['Percentage'];
+        $Discounted_Amount=$row['Discounted_Amount'];
+
     } else {
         echo "Offer not found!";
         exit;
@@ -60,7 +64,7 @@ if (isset($_POST['promo_code'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Offer Information</title>
-    <link rel="stylesheet" href="styleeditoffer.css">
+    <link rel="stylesheet" href="styleeditcustomer.css">
 </head>
 <body>
 
@@ -71,30 +75,27 @@ if (isset($_POST['promo_code'])) {
         <br>
         <h5 style="color:#04AA6D;">Edit Offer Information</h5>
         <br>
-        <!-- Promo Code input field -->
-        <label for="promo_code"><b>Promo Code</b></label><br>
-        <input type="text" placeholder="Promo Code" name="promo_code" value="<?php echo $promo_code; ?>" required>
-        <span class="error"><?php echo $promo_codeErr; ?></span><br>
+        <!-- User ID input field -->
+        <label for="Promo_Code"><b>Promo Code</b></label><br>
+        <input type="text" placeholder="Promo Code" name="Promo_Code" value="<?php echo $Promo_Code; ?>" required>
+        <span class="error"><?php echo $Promo_CodeErr; ?></span><br>
 
-        <!-- Description field -->
-        <label for="description"><b>Description</b></label><br>
-        <input type="text" placeholder="Description" name="description" value="<?php echo $description; ?>" required>
-        <span class="error"><?php echo $descriptionErr; ?></span><br>
+        <!-- Name field -->
+        <label for="Description"><b>Description</b></label><br>
+        <input type="text" placeholder="Description" name="Description" value="<?php echo $Description; ?>" required>
+        <span class="error"><?php echo $DescriptionErr; ?></span><br>
 
-        <!-- Promo Type field -->
-        <label for="promo_type"><b>Promo Type</b></label><br>
-        <input type="text" placeholder="Promo Type" name="promo_type" value="<?php echo $promo_type; ?>" required><br>
-        <span class="error"><?php echo $promo_typeErr; ?></span><br>
+        <label for="Promo_Type"><b>Promo_Type</b></label><br>
+        <input type="text" placeholder="Promo_Type" name="Promo_Type" value="<?php echo $Promo_Type; ?>" required>
+        <span class="error"><?php echo $Promo_TypeErr; ?></span><br>
 
-        <!-- Percentage field -->
-        <label for="percentage"><b>Percentage</b></label><br>
-        <input type="number" placeholder="Percentage" name="percentage" value="<?php echo $percentage; ?>" required><br>
-        <span class="error"><?php echo $percentageErr; ?></span><br>
+        <label for="Percentage"><b>Percentage</b></label><br>
+        <input type="text" placeholder="Percentage" name="Percentage" value="<?php echo $Percentage; ?>">
+        <span class="error"><?php echo $PercentageErr; ?></span><br>
 
-        <!-- Discounted Amount field -->
-        <label for="discounted_amount"><b>Discounted Amount</b></label><br>
-        <input type="number" placeholder="Discounted Amount" name="discounted_amount" value="<?php echo $discounted_amount; ?>" required><br>
-        <span class="error"><?php echo $discounted_amountErr; ?></span><br>
+        <label for="Discounted_Amount"><b>Discounted_Amount</b></label><br>
+        <input type="text" placeholder="Discounted_Amount" name="Discounted_Amount" value="<?php echo $Discounted_Amount; ?>">
+        <span class="error"><?php echo $Discounted_AmountErr; ?></span><br>
 
         <br>
         <button type="submit" class="registerbtn">Update Information</button>

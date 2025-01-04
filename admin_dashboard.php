@@ -67,6 +67,12 @@
         <a href="modifycustomerinfo.php" class="edit-link">
             Edit Customer Information
         </a>
+        <br>
+        <br>
+        <div class="deletecustomer">
+        <a href="deletecustomer.php" class="edit-link">
+            Delete Customer
+        </a>
         </div>
         <br>
 
@@ -119,6 +125,18 @@
         </a>
         </div>
         <br>
+        <div class="deletecar">
+        <a href="deletecar.php" class="edit-link">
+            Delete Car
+        </a>
+        </div>
+        <br>
+        <div class="addcar">
+        <a href="addcar.php" class="edit-link">
+            Add Car
+        </a>
+        </div>
+        <br>
 
         <section class="deal">
             <div class="deal_box">
@@ -161,5 +179,17 @@
         <div class="editoffer">
         <a href="modifyofferinfo.php" class="edit-link">
             Edit Offer Details
+        </a>
+        </div>
+        <br>
+        <div class="deleteoffer">
+        <a href="deleteoffer.php" class="edit-link">
+            Delete Offer
+        </a>
+        </div>
+        <br>
+        <div class="addoffer">
+        <a href="addoffer.php" class="edit-link">
+            Add Offer
         </a>
         </div>

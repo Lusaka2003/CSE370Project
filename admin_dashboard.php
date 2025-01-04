@@ -35,6 +35,7 @@
                             <th>Date of Birth</th>
                             <th>License Number</th>
                             <th>Phone Number</th>
+                            <th>     </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +54,10 @@
                             <td><?php echo $row["date_of_birth"]; ?></td>
                             <td><?php echo $row["License_No"]; ?></td>
                             <td><?php echo $row["phone"]; ?></td>
+                            <td>
+                        <!-- Edit link passing the USER_ID to the modifycustomerinfo.php page -->
+                        <a href="modifycustomerinfo.php?user_id=<?php echo $row['USER_ID']; ?>" class="edit-link">Edit</a>
+                    </td>
                         </tr>
                         <?php
                             }
@@ -62,12 +67,12 @@
                 </table>
             </div>
         </section>
-        <br>
+        <!-- <br>
         <div class="editcustomer">
         <a href="modifycustomerinfo.php" class="edit-link">
             Edit Customer Information
         </a>
-        <br>
+        <br> -->
         <br>
         <div class="deletecustomer">
         <a href="deletecustomer.php" class="edit-link">
@@ -145,10 +150,8 @@
                     <thead>
                         <tr>
                             <th>Promo Code</th>
-                            <th>Description</th>
-                            <th>Promo Type</th>
                             <th>Percentage</th>
-                            <th>Discount Amount</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -161,10 +164,8 @@
                         ?>
                         <tr>
                             <td><?php echo $row["Promo_Code"]; ?></td>
-                            <td><?php echo $row["Description"]; ?></td>
-                            <td><?php echo $row["Promo_Type"]; ?></td>
                             <td><?php echo $row["Percentage"]; ?></td>
-                            <td><?php echo $row["Discounted_Amount"]; ?></td>
+     
      
                         </tr>
                         <?php
@@ -191,5 +192,59 @@
         <div class="addoffer">
         <a href="addoffer.php" class="edit-link">
             Add Offer
+        </a>
+        </div>
+
+        <br>
+        <section class="reservation">
+            <div class="reservation_box">
+                <h1>Reservation List</h1>
+                <table class="reservation_table">
+                    <thead>
+                        <tr>
+                            <th>Reservation Id</th>
+                            <th>Pick Up Date</th>
+                            <th>Drop off Date</th>
+                            <th>Car Rented</th>
+                            <th>Promo Code Used</th>
+                            <th>Car Rented By</th>
+                            <th>Amount to be Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        require_once("connect.php");
+                        $sql = "SELECT * FROM reservation";
+                        $result = mysqli_query($conn, $sql);
+                        if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_array($result)){
+                        ?>
+                        <tr>
+                            <td><?php echo $row["Reservation_ID"]; ?></td>
+                            <td><?php echo $row["Start_Date"]; ?></td>
+                            <td><?php echo $row["End_Date"]; ?></td>
+                            <td><?php echo $row["License_plate"]; ?></td>
+                            <td><?php echo $row["Promo_Code"]; ?></td>
+                            <td><?php echo $row["USER_ID"]; ?></td>
+                            <td><?php echo $row["totalAmount"]; ?></td>
+                        </tr>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br>
+        <div class="deletereservation">
+        <a href="modifyreservation.php" class="edit-link">
+            Edit Reservation Information
+        </a>
+        </div>
+        <br>
+        <div class="deletereservation">
+        <a href="deletereservation.php" class="edit-link">
+            Delete Reservation Information
         </a>
         </div>

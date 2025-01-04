@@ -1,0 +1,109 @@
+/* General body and page layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Main container for the form */
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; /* Keeps container centered even on large screens */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 480px; /* Increased height to accommodate form and messages */
+}
+
+/* Header */
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Input fields styling */
+input[type="number"],
+input[type="text"],
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures proper width */
+}
+
+/* Submit button */
+input[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  height: 45px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #218838;
+
+}
+
+/* Style for the checkbox group */
+.checkbox-group {
+  text-align: left;
+  margin-bottom: 20px;
+  padding-left: 20px; 
+}
+
+/* Success and error messages */
+.success, .error {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.success {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.error {
+  color: #fff;
+  background-color: #e74c3c;
+}
+
+/* Footer section */
+.footer {
+  font-size: 14px;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Adjustments for message container */
+.message-container {
+  flex-shrink: 0; 
+}

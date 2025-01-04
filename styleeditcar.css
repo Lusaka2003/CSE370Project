@@ -1,0 +1,110 @@
+/* General Reset and Box Sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Container for Form */
+.container {
+  width: 60%;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styles */
+h4 {
+  color: white;
+  background-color: #04AA6D;
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+h5 {
+  color: #04AA6D;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* Form Labels and Inputs */
+label {
+  font-weight: bold;
+  color: #333;
+  margin-top: 15px;
+}
+
+input[type="text"], input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+  outline: none;
+  border-color: #04AA6D;
+}
+
+/* Error Message Styling */
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+/* Submit Button Styling */
+.registerbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.registerbtn:hover {
+  background-color: #039a56;
+}
+
+/* Signin Link Styling */
+.signin {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signin a {
+  color: #04AA6D;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.signin a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+      padding: 20px;
+  }
+
+  h5 {
+      font-size: 20px;
+  }
+}

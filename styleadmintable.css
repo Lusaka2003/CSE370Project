@@ -365,3 +365,92 @@ main {
 .editoffer{
     text-align: center;
 }
+.deleteoffer{
+    text-align: center;
+}
+.addoffer{
+    text-align: center;
+}
+
+.reservation_box {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.reservation_box h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Table Styles */
+.reservation_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.reservation_table th, .reservation_table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.reservation_table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.reservation_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.reservation_table td {
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .reservation_box {
+        padding: 15px;
+    }
+
+    .reservation_table th, .reservation_table td {
+        padding: 10px;
+    }
+}
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .reservation_box {
+        padding: 15px;
+    }
+
+    .reservation_table th, .cr_table td {
+        padding: 10px;
+    }
+}
+.deletereservation{
+    text-align: center;
+}

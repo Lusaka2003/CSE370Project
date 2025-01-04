@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                             <th>Promo Code</th>
-                            <th>Description</th>
+                       
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +40,7 @@
                         ?>
                         <tr>
                             <td><?php echo $row["Promo_Code"]; ?></td>
-                            <td><?php echo $row["Description"]; ?></td>
+                     
      
                         </tr>
                         <?php

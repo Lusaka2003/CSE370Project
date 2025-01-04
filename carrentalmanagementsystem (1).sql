@@ -79,7 +79,7 @@ CREATE TABLE `customer` (
   `USER_ID` int(11) NOT NULL,
   `Name` varchar(40) DEFAULT NULL,
   `email` varchar(40) DEFAULT NULL,
-  `Password` varchar(50) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
   `phone` int(11) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
@@ -125,7 +125,7 @@ INSERT INTO `offer_details` (`Promo_Code`, `Description`, `Promo_Type`, `Percent
 --
 
 CREATE TABLE `payment` (
-  `Payment_ID` int(11) NOT NULL,
+  `Payment_ID` int(11) NOT NULL AUTO_INCREMENT,
   `Amount_Paid` int(11) DEFAULT NULL,
   `Card_No` char(16) DEFAULT NULL,
   `Name_On_Card` varchar(50) DEFAULT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE `reference` (
 --
 
 CREATE TABLE `reservation` (
-  `Reservation_ID` int(11) NOT NULL,
+  `Reservation_ID` int(11) NOT NULL AUTO_INCREMENT,
   `Start_Date` date NOT NULL,
   `End_Date` date NOT NULL,
   `Meter_Start` int(11) NOT NULL,

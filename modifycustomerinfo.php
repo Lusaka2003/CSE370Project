@@ -1,128 +1,93 @@
 <?php
-include "connect.php";
+require_once("connect.php");
 
-// Declare variables
-$user_id = $name = $phone = $address = $license = $email = $date_of_birth = "";
-$user_idErr = $nameErr = $phoneErr = $addressErr = $licenseErr = $emailErr = $date_of_birthErr = "";
+// Check if user_id is set in the URL
+if (isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
 
-// If the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Capture the form data
-    $user_id = $_POST['USER_ID'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $license = $_POST['license'];
-    $email = $_POST['email'];
-    $date_of_birth = $_POST['date_of_birth'];
+    // Fetch the customer data based on the user_id
+    $sql = "SELECT * FROM customer WHERE USER_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Validate that USER_ID is not empty
-    if (empty($user_id)) {
-        $user_idErr = "User ID is required.";
-    }
-
-    // If there are no validation errors, proceed to update the data
-    if (empty($user_idErr) && empty($nameErr) && empty($phoneErr) && empty($addressErr) && empty($licenseErr) && empty($emailErr) && empty($date_of_birthErr)) {
-        // Prepare SQL query to update customer data based on USER_ID
-        $query = "UPDATE customer 
-                  SET Name = '$name', phone = '$phone', address = '$address', License_No = '$license', email = '$email', date_of_birth = '$date_of_birth' 
-                  WHERE USER_ID = '$user_id'";
-
-        if (mysqli_query($conn, $query)) {
-            echo "Customer information updated successfully!";
-            // Redirect back to the dashboard or wherever you want after the update
-            header("Location: admin_dashboard.php");
-            exit();
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
-    }
-}
-
-// Check if USER_ID is provided for the form (via POST) to update
-if (isset($_POST['USER_ID'])) {
-    $user_id = $_POST['USER_ID'];
-    $sql = "SELECT * FROM customer WHERE USER_ID = '$user_id'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        // Pre-fill the form with the existing data
-        $name = $row['Name'];
-        $phone = $row['phone'];
-        $address = $row['address'];
-        $license = $row['License_No'];
-        $email = $row['email'];
-        $date_of_birth = $row['date_of_birth'];
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
     } else {
         echo "Customer not found!";
-        exit;
+        exit();
     }
+} else {
+    echo "Invalid request!";
+    exit();
 }
 
+// Handling form submission (for example, updating customer data)
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+    $date_of_birth = $_POST['date_of_birth'];
+    $license_no = $_POST['license_no'];
+    $phone = $_POST['phone'];
+
+    // Update customer data in the database
+    $update_sql = "UPDATE customer SET Name = ?, address = ?, email = ?, date_of_birth = ?, License_No = ?, phone = ? WHERE USER_ID = ?";
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("ssssssi", $name, $address, $email, $date_of_birth, $license_no, $phone, $user_id);
+    
+    if ($stmt->execute()) {
+        // echo "Customer data updated successfully!";
+    } else {
+        echo "Error updating customer data.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Customer Information</title>
-    <link rel="stylesheet" href="styleeditcustomer.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styleeditcustomer.css" />
+    <title>Edit Customer</title>
 </head>
 <body>
+    <!-- <h1>Edit Customer Information</h1> -->
 
-    <br>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form method="POST" action="modifycustomerinfo.php?user_id=<?php echo $user_id; ?>">
     <div class="container">
-        <h4 style="color:white; background-color:#04AA6D">NeedACar</h4>
+    <h4 style="color:white; background-color:#04AA6D">NeedACar</h4>
         <br>
         <h5 style="color:#04AA6D;">Edit Customer Information</h5>
         <br>
-        <!-- User ID input field -->
-        <label for="user_id"><b>User ID</b></label><br>
-        <input type="text" placeholder="User ID" name="USER_ID" value="<?php echo $user_id; ?>" required>
-        <span class="error"><?php echo $user_idErr; ?></span><br>
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<?php echo htmlspecialchars($row['Name']); ?>" required /><br>
 
-        <!-- Name field -->
-        <label for="name"><b>Name</b></label><br>
-        <input type="text" placeholder="Name" name="name" value="<?php echo $name; ?>" required>
-        <span class="error"><?php echo $nameErr; ?></span><br>
+        <label for="address">Address:</label>
+        <input type="text" name="address" value="<?php echo htmlspecialchars($row['address']); ?>" required /><br>
 
-        <!-- Phone number field -->
-        <label for="phone"><b>Phone number:</b></label><br>
-        <input type="tel" placeholder="Phone Number" name="phone" value="<?php echo $phone; ?>" required>
-        <span class="error"><?php echo $phoneErr; ?></span><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required /><br>
 
-        <!-- Address field -->
-        <label for="address"><b>Address</b></label><br>
-        <input type="text" placeholder="Address" name="address" value="<?php echo $address; ?>" required><br>
-        <span class="error"><?php echo $addressErr; ?></span><br>
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="date" name="date_of_birth" value="<?php echo htmlspecialchars($row['date_of_birth']); ?>" required /><br>
 
-        <!-- License number field -->
-        <label for="license"><b>License Number</b></label><br>
-        <input type="text" placeholder="License Number" name="license" value="<?php echo $license; ?>" required><br>
-        <span class="error"><?php echo $licenseErr; ?></span><br>
+        <label for="license_no">License Number:</label>
+        <input type="text" name="license_no" value="<?php echo htmlspecialchars($row['License_No']); ?>" required /><br>
 
-        <!-- Email field -->
-        <label for="email"><b>Email</b></label><br>
-        <input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
-        <span class="error"><?php echo $emailErr; ?></span><br>
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" value="<?php echo htmlspecialchars($row['phone']); ?>" required /><br>
 
-        <!-- Date of birth field -->
-        <label for="date_of_birth"><b>Date of Birth</b></label><br>
-        <input type="date" placeholder="Enter Date of Birth" name="date_of_birth" value="<?php echo $date_of_birth; ?>" required>
-        <span class="error"><?php echo $date_of_birthErr; ?></span><br>
-        <br>
-        <button type="submit" class="registerbtn">Update Information</button>
-    </div>
-
+        <button type="submit">Update Customer</button>
+        </form>
     <div class="container signin">
-        <p><a href="admin_dashboard.php">Back to Dashboard</a></p>
+    <p><a href="admin_dashboard.php" style="background-color:  #04AA6D; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Back to Dashboard</a></p>
     </div>
-</form>
-
+</div>
+    
 </body>
 </html>
-
 
 

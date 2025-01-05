@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 04, 2025 at 09:10 AM
+-- Host: 127.0.0.1:4306
+-- Generation Time: Jan 05, 2025 at 05:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -64,10 +64,11 @@ CREATE TABLE `car` (
 INSERT INTO `car` (`License_plate`, `Status`, `Seating_Capacity`, `Car_Type`, `Model`, `Brand`, `Color`, `RentPerDay`) VALUES
 ('AB1234CD', 'Available', 5, 'Compact', 'Premio', 'Toyota', 'White', 3000),
 ('EF5678GH', 'Available', 5, 'Compact', 'Corolla', 'Toyota', 'Black', 3000),
-('IJ9012KL', 'Not Available', 4, 'Compact', 'Civic', 'Honda', 'Red', 3000),
+('IJ9012KL', 'Available', 4, 'Compact', 'Civic', 'Honda', 'Red', 3000),
 ('KY1234JK', 'Not Available', 5, 'Sedan', 'Silvia', 'Nissan', 'Black', 4000),
 ('MN3456OP', 'Not Available', 4, 'Compact', 'Allion', 'Toyota', 'Blue', 3500),
-('QR7890ST', 'Not Available', 4, 'SUV', 'Forestar', 'Subaru', 'Yellow', 3000);
+('QR7890ST', 'Available', 4, 'SUV', 'Forestar', 'Subaru', 'Yellow', 3000),
+('XY1234XY', 'Available', 4, 'Sedan', 'Nissan', 'Sentra', 'Black', 3800);
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,7 @@ INSERT INTO `customer` (`USER_ID`, `Name`, `email`, `Password`, `date_of_birth`,
 
 CREATE TABLE `offer_details` (
   `Promo_Code` varchar(15) NOT NULL,
+  `Description` text NOT NULL,
   `Percentage` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -110,9 +112,9 @@ CREATE TABLE `offer_details` (
 -- Dumping data for table `offer_details`
 --
 
-INSERT INTO `offer_details` (`Promo_Code`, `Percentage`) VALUES
-('FLAT500', 0),
-('NEWYEAR15', 15);
+INSERT INTO `offer_details` (`Promo_Code`, `Description`, `Percentage`) VALUES
+('HELLO', '10 Percent Discount on all Cars', 10),
+('NEWYEAR15', '15 Percent Discount on all Cars', 15);
 
 -- --------------------------------------------------------
 
@@ -140,17 +142,6 @@ INSERT INTO `payment` (`Payment_ID`, `Amount_Paid`, `Card_No`, `Name_On_Card`, `
 (3, 6300, '9876543298765432', 'Ron Weasley', 0, 1),
 (4, 5000, NULL, NULL, 1, 0),
 (5, 8200, '5555666677778888', 'Draco Malfoy', 0, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reference`
---
-
-CREATE TABLE `reference` (
-  `Referee_id` int(11) DEFAULT NULL,
-  `Referer_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

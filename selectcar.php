@@ -95,6 +95,16 @@
             <h3>Nissan Silvia</h3>
             <p>Price: 4000 taka/day</p>
         </div>
+        <div class="car">
+            <img src="camry.png" alt="Car 7">
+            <h3>Toyota Camry</h3>
+            <p>Price: 4000 taka/day</p>
+        </div>
+        <div class="car">
+            <img src="sentra.png" alt="Car 7">
+            <h3>Nissan Sentra</h3>
+            <p>Price: 3800 taka/day</p>
+        </div>
     </div>
     </section>
 </body>

@@ -214,7 +214,7 @@
                     <tbody>
                         <?php 
                         require_once("connect.php");
-                        $sql = "SELECT * FROM reservation";
+                        $sql = "SELECT * FROM reservation ORDER BY END_DATE";
                         $result = mysqli_query($conn, $sql);
                         if(mysqli_num_rows($result) > 0){
                             while($row = mysqli_fetch_array($result)){

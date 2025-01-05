@@ -27,20 +27,22 @@
                     <thead>
                         <tr>
                             <th>Promo Code</th>
-                       
+                            <th>Description</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         require_once("connect.php");
-                        $sql = "SELECT * FROM offer_details";
+                        $sql = "SELECT * FROM offer_details ORDER BY Percentage DESC";
                         $result = mysqli_query($conn, $sql);
                         if(mysqli_num_rows($result) > 0){
                             while($row = mysqli_fetch_array($result)){
                         ?>
                         <tr>
                             <td><?php echo $row["Promo_Code"]; ?></td>
-                     
+                            <td><?php echo $row["Description"]; ?></td>
+                
      
                         </tr>
                         <?php
@@ -52,4 +54,5 @@
             </div>
         </section>
         <br>
+
 

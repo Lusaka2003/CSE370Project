@@ -2,7 +2,7 @@
 include "connect.php";
 
 // Declare variables
-$Promo_Code=$Description=$Promo_Type=$Percentage=$Discounted_Amount="";
+$Promo_Code=$Description=$Percentage="";
 $Promo_CodeErr=$DescriptionErr=$Promo_TypeErr=$PercentageErr=$Discounted_AmountErr="";
 // If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,10 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are no validation errors, proceed to update the data
-    if (empty($Promo_CodeErr) && empty($StatusErr) ) {
+    if (empty($Promo_CodeErr) && empty($DescriptionErr) && empty($PercentageErr)) {
         // Prepare SQL query to update customer data based on USER_ID
         $query = "UPDATE offer_details
-                  SET Description = '$Description', Promo_Type = '$Promo_Type',Percentage = '$Percentage', Discounted_Amount = '$Discounted_Amount'
+                  SET Description = '$Description',Percentage = '$Percentage'
                   WHERE Promo_Code = '$Promo_Code'";
 
         if (mysqli_query($conn, $query)) {
@@ -46,9 +46,8 @@ if (isset($_POST['Promo_Code'])) {
         // Pre-fill the form with the existing data
         $Promo_Code=$row['Promo_Code'];
         $Description=$row['Description'];
-        $Promo_Typee=$row['Promo$Promo_Typee'];
         $Percentage=$row['Percentage'];
-        $Discounted_Amount=$row['Discounted_Amount'];
+
 
     } else {
         echo "Offer not found!";
@@ -85,17 +84,9 @@ if (isset($_POST['Promo_Code'])) {
         <input type="text" placeholder="Description" name="Description" value="<?php echo $Description; ?>" required>
         <span class="error"><?php echo $DescriptionErr; ?></span><br>
 
-        <label for="Promo_Type"><b>Promo_Type</b></label><br>
-        <input type="text" placeholder="Promo_Type" name="Promo_Type" value="<?php echo $Promo_Type; ?>" required>
-        <span class="error"><?php echo $Promo_TypeErr; ?></span><br>
-
         <label for="Percentage"><b>Percentage</b></label><br>
         <input type="text" placeholder="Percentage" name="Percentage" value="<?php echo $Percentage; ?>">
         <span class="error"><?php echo $PercentageErr; ?></span><br>
-
-        <label for="Discounted_Amount"><b>Discounted_Amount</b></label><br>
-        <input type="text" placeholder="Discounted_Amount" name="Discounted_Amount" value="<?php echo $Discounted_Amount; ?>">
-        <span class="error"><?php echo $Discounted_AmountErr; ?></span><br>
 
         <br>
         <button type="submit" class="registerbtn">Update Information</button>

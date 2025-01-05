@@ -1,3 +1,4 @@
+
 <?php
 include "connect.php";
 
@@ -18,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If there are no validation errors, proceed to update the data
     if (empty($Reservation_IDErr) ) {
-        // Prepare SQL query to update customer data based on Reservation_ID
-        $query = "DELETE FROM customer WHERE Reservation_ID='$Reservation_ID'";
+        // Prepare SQL query to update reservation data based on Reservation_ID
+        $query = "DELETE FROM reservation WHERE Reservation_ID='$Reservation_ID'";
 
         if (mysqli_query($conn, $query)) {
-            echo "Customer Deleted successfully!";
+            echo "reservation Deleted successfully!";
             // Redirect back to the dashboard or wherever you want after the update
             header("Location: admin_dashboard.php");
             exit();
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Check if Reservation_ID is provided for the form (via POST) to update
 if (isset($_POST['Reservation_ID'])) {
     $Reservation_ID = $_POST['Reservation_ID'];
-    $sql = "SELECT * FROM customer WHERE Reservation_ID = '$Reservation_ID'";
+    $sql = "SELECT * FROM reservation WHERE Reservation_ID = '$Reservation_ID'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -47,7 +48,7 @@ if (isset($_POST['Reservation_ID'])) {
         // $email = $row['email'];
         // $date_of_birth = $row['date_of_birth'];
     } else {
-        echo "Customer not found!";
+        echo "reservation not found!";
         exit;
     }
 }
@@ -59,8 +60,8 @@ if (isset($_POST['Reservation_ID'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Customer</title>
-    <link rel="stylesheet" href="styleeditcustomer.css">
+    <title>Delete reservation</title>
+    <link rel="stylesheet" href="styleeditreservation.css">
 </head>
 <body>
 

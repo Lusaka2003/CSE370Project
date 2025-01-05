@@ -68,11 +68,7 @@
             </div>
         </section>
         <br>
-        <div class="editcustomer">
-        <a href="modifycustomerinfo.php" class="edit-link">
-            Edit Customer Information
-        </a>
-        <br>
+        
         <br>
         <div class="deletecustomer">
         <a href="deletecustomer.php" class="edit-link">

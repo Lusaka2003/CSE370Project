@@ -1,4 +1,3 @@
-
 <?php
 include "connect.php";
 
@@ -61,7 +60,7 @@ if (isset($_POST['Reservation_ID'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete reservation</title>
-    <link rel="stylesheet" href="styleeditreservation.css">
+    <link rel="stylesheet" href="styleeditcustomer.css">
 </head>
 <body>
 

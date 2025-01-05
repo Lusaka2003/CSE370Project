@@ -1,127 +1,170 @@
-*{
-    margin:0; padding:0;
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: Verdana,Geneva,Tahoma,sans-serif;
-    outline:none;border:none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: 2s linear;
-}
-html{
-    font-size: 62.5%;
-    scroll-behavior: smooth;
-    scroll-padding-top:6rem ;
-    overflow-x: hidden;
-}
-section{
-    padding: 2rem 9%
-}
-div {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100px;
-}
-header{
-    position: fixed;
-    top:0;
-    left: 0;
-    right: 0;
-    background: #04AA6D;
-    padding: 2rem 9%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    box-shadow: 0.5rem 1 rem rgba(0,0,0,.1);
+    font-family: 'Arial', sans-serif;
 }
 
-header .logo{
-    font-size: 3rem;
-    color: white;
-    font-weight: bolder;
-}
-
-header .logo span{
-    color: var(--red);
-}
- header .navbar a{
-    font-size: 2rem;
-    padding: 0 1.5rem;
-    color: whitesmoke;
- }
-
- header .navbar a:hover{
-    color:var(--red)
- }
-
- .home{
-    display: flex;
-    align-items:center;
-    min-height: 100vh;
-    background: url("colin-lloyd-titfvbwn_hc-unsplash.jpg") no-repeat;
+/* Body and Background */
+body {
+    background: url('colin-lloyd-titfvbwn_hc-unsplash.jpg') no-repeat center center fixed; /* Replace with your background image */
     background-size: cover;
-    background-position: center;
- }
- .wrapper{
-    width: 420px;
-    background: rgb(238, 240, 239) ;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(9px);
-    color: black;
+    font-size: 0.8rem;
+    color: white;
+    line-height: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* Header Section */
+header {
+    width: 100%;
+    background-color: rgba(4, 170, 109, 0.8); /* Slight opacity for background */
+    padding: 2rem 0;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
     font-weight: bold;
+}
+
+/* Main Container */
+.container {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 700px; /* Adjusted to make the form narrower */
+    /* max-height: 900px; */
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
     border-radius: 12px;
-    padding: 30px 40px;
-    opacity: 0.9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 0 15px;
+    box-sizing: border-box;
+}
 
-  }
-  .wrapper .input-box{
-    position: relative;
+/* Form Container */
+.form-container {
     width: 100%;
-    height: 50px;
-    
-    margin: 30px 0;
-  }
-  .input-box input{
+}
+
+/* Input fields and labels */
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #f0f0f0;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="date"] {
     width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: #04AA6D;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
-    font-size: 16px;
-    color: #fff;
-    padding: 20px 45px 20px 20px;
-  }
+}
 
+/* Error Styling */
+.error {
+    color: red;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
 
+/* Submit Button */
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
 
+button:hover {
+    background-color: #037a4d;
+}
 
+/* Sign-in link */
+.signin {
+    margin-top: 2rem;
+}
 
+.signin a {
+    font-size: 1.4rem;
+    color: #04AA6D;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}
 
+.signin a:hover {
+    text-decoration: underline;
+}
 
- @media (max-width:991px){
-    html{
-        font-size: 55%;
+/* Responsive Styles for Small Screens (Mobile/Tablet) */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
     }
-    header{
-        padding:2rem;
-    }
- }
 
- @media (max-width:768px){
-    header .navbar{
-        position:absolute;
-        top: 0; left: 0; right: 0;
-        background: #eee;
-        border-top: .1rem solid rgba(0,0,0.1);
-        clip-path: polygon(0 0,100% 0,0 0);
-    }
-    header .navbar a{
-        margin: 1.5rem;
+    .container {
         padding: 1.5rem;
-        background: #fff;
-        border: .1rem solid rgba(0,0,0.1);
-        display: block;
+        width: 90%;
     }
- }
+
+    label,
+    input[type="text"],
+    input[type="date"],
+    button {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 1rem;
+        width: 90%;
+    }
+
+    button {
+        padding: 1rem 2rem;
+    }
+
+    .signin a {
+        font-size: 1.4rem;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        padding: 1rem;
+    }
+}
+
+

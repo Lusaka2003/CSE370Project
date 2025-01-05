@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['promoCode'] = $Promo_Code;
                         
                         // Redirect to reservation summary page
-                        header("Location: payment.php");
+                        header("Location: summary.php");
                         exit();
                     } else {
                         echo "Error: Could not execute query: " . mysqli_error($conn);
@@ -203,3 +203,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+

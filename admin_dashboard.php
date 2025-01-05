@@ -150,6 +150,7 @@
                     <thead>
                         <tr>
                             <th>Promo Code</th>
+                            <th>Description</th>
                             <th>Percentage</th>
                            
                         </tr>
@@ -164,6 +165,7 @@
                         ?>
                         <tr>
                             <td><?php echo $row["Promo_Code"]; ?></td>
+                            <td><?php echo $row["Description"]; ?></td>
                             <td><?php echo $row["Percentage"]; ?></td>
      
      

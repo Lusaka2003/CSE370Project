@@ -1,14 +1,6 @@
 <?php
 include "connect.php"; 
 
-$conn = new mysqli($servername, $username, $password);
-if ($conn->connect_error) {
-    die("Connection Failed: ". $conn->connect_error);
-}else{
-    // echo "Connection Established";
-    mysqli_select_db($conn, $dbname);
-}
-
 $name = $phone = $address = $license = $email = $date_of_birth = $password = $confirm_password = "";
 $nameErr = $phoneErr = $addressErr = $licenseErr = $emailErr = $date_of_birthErr = $passwordErr = $confirm_passwordErr = "";
 

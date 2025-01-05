@@ -209,14 +209,17 @@
                             <th>Drop off Date</th>
                             <th>Car Rented</th>
                             <th>Promo Code Used</th>
-                            <th>Car Rented By</th>
                             <th>Amount to be Paid</th>
+                            <th>Car Renter ID</th>
+                            <th>Car Renter Name</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         require_once("connect.php");
-                        $sql = "SELECT * FROM reservation ORDER BY End_Date";
+                        // $sql = "SELECT * FROM reservation ORDER BY End_Date";
+                        $sql = "SELECT r.Reservation_ID,r.Start_Date,r.End_Date,r.License_plate,r.Promo_Code,r.totalAmount,r.USER_ID,c.Name from reservation r, customer c where c.USER_ID=r.USER_ID ORDER BY r.End_Date";
                         $result = mysqli_query($conn, $sql);
                         if(mysqli_num_rows($result) > 0){
                             while($row = mysqli_fetch_array($result)){
@@ -227,8 +230,10 @@
                             <td><?php echo $row["End_Date"]; ?></td>
                             <td><?php echo $row["License_plate"]; ?></td>
                             <td><?php echo $row["Promo_Code"]; ?></td>
-                            <td><?php echo $row["USER_ID"]; ?></td>
                             <td><?php echo $row["totalAmount"]; ?></td>
+                            <td><?php echo $row["USER_ID"]; ?></td>
+                            <td><?php echo $row["Name"]; ?></td>
+                            
                         </tr>
                         <?php
                             }
@@ -250,4 +255,5 @@
             Delete Reservation Information
         </a>
         </div>
+
 

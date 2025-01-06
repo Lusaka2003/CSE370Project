@@ -10,8 +10,8 @@
     
 <section class="cars">
             <div class="car_box">
-                <h1>Avialable Car List</h1>
-                <h1>Copy the license plate of the car you want rent and proceed to Rent Now</h1>
+                <h1>Available Car List</h1>
+                <h1>Copy the license plate of the car you want to rent and proceed to Rent Now</h1>
                 <table class="car_table">
                     <thead>
                         <tr>

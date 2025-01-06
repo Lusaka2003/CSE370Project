@@ -1,138 +1,123 @@
-/* General body and layout settings */
-body {
-  font-family: Arial, sans-serif;
+/* Basic Reset */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
-  color: #333;
+  box-sizing: border-box;
 }
 
+/* General body and layout settings */
+body {
+  font-family: 'Arial', sans-serif;
+  background: white;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Header Section */
 header {
-  background-color: #343a40;
+  background-color: #04AA6D;
   color: white;
-  padding: 1em 0;
+  padding: 15px 0;
   text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-  margin: 0;
   font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
+/* Navigation Bar */
 .nav-bar {
-  background-color: #495057;
+  background-color: #333;
+  padding: 10px 0;
   text-align: center;
-  padding: 0.5em 0;
+  border-radius: 5px;
 }
 
 .nav-bar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
-.nav-bar ul li {
+.nav-bar li {
   display: inline;
-  margin: 0 1em;
 }
 
-.nav-bar ul li a {
+.nav-bar a {
   color: white;
   text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
-.nav-bar ul li a:hover {
-  text-decoration: underline;
+.nav-bar a:hover {
+  color: #04AA6D;
+  background-color: white;
 }
 
-/* Profile section styles */
+/* User Profile Section */
 .user-profile-section {
   max-width: 600px;
-  margin: 2em auto;
+  width: 90%;
   background-color: white;
-  padding: 1.5em;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.user-profile-section h2 {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: #343a40;
-  margin-bottom: 1em;
-  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
-/* Individual profile detail container */
+
+/* Profile Details */
 .profile-details {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    margin-bottom: 15px; /* Adds space between fields */
-}
-
-.profile-details input[type="text"] {
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px; /* Space below the input box */
-}
-
-.profile-details span, 
-.profile-details input {
-  display: block;
   width: 100%;
-  padding: 0.8em;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f1f1f1;
+  text-align: left;
+}
+
+.profile-details label {
+  font-size: 0.9rem;
+  font-weight: bold;
   color: #333;
-  font-size: 1rem;
-  flex-basis: 60%;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .profile-details span {
-  background-color: #f8f9fa;
-  border: 1px solid #e2e6ea;
-}
-
-.profile-details input {
-  background-color: #fff;
-  border: 1px solid #ced4da;
-}
-
-/* Remove the update button from the name input and position it outside the name field */
-.profile-details-name {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.update-name-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5em 1em;
+  display: block;
+  width: 100%;
+  padding: 10px;
   font-size: 0.9rem;
-  cursor: pointer;
-  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
 }
 
-.update-name-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Select a Car button */
+/* Select a Car Button */
 .select-car-btn {
   display: block;
   width: 100%;
   text-align: center;
-  background-color: #28a745;
+  background-color: #04AA6D;
   color: white;
-  padding: 1em;
-  margin: 2em 0;
-  font-size: 1.2rem;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -140,37 +125,54 @@ header h1 {
 }
 
 .select-car-btn:hover {
-  background-color: #218838;
+  background-color: #028a5e;
+  transform: translateY(-2px);
 }
 
-/* Logout button (make it smaller) */
+/* Logout Button */
 .logout-btn {
   display: block;
-  width: 80%;
+  width: 100%;
   text-align: center;
   background-color: #6c757d;
   color: white;
-  padding: 0.6em;
+  padding: 10px;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  opacity: 0.8;
-  margin-top: 1em;
-  margin-left: 10%;
 }
 
 .logout-btn:hover {
   background-color: #5a6268;
-  opacity: 1;
+  transform: translateY(-2px);
 }
 
-/* Footer styles */
+/* Footer */
 footer {
   text-align: center;
-  padding: 1em 0;
-  background-color: #343a40;
+  padding: 10px;
+  background-color: #333;
   color: white;
-  margin-top: 2em;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-bar ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-details span {
+    font-size: 0.8rem;
+  }
+
+  .select-car-btn,
+  .logout-btn {
+    font-size: 0.9rem;
+  }
 }

@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['promoCode'] = $Promo_Code;
                         
                         // Redirect to reservation summary page
-                        header("Location: payment.php");
+                        header("Location: payment.php?totalAmount=" . urlencode($totalAmount));
                         exit();
                     } else {
                         echo "Error: Could not execute query: " . mysqli_error($conn);
@@ -194,8 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div>
                 <?php if ($totalAmount > 0) { echo "Total Amount: $" . $totalAmount; } ?>
             </div>
-
-            <br>
+\            <br>
             <button type="submit" class="registerbtn">PROCEED TO RENT</button>
         </div>
 
@@ -203,4 +202,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
-

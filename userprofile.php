@@ -1,15 +1,28 @@
 <?php
 require_once('connect.php');
 
-$email = $_POST['email']; 
-$sql = "SELECT * FROM customer WHERE email = '$email'";
-$result = mysqli_query($conn, $sql);
+// Get the email passed via the URL
+if (isset($_GET['email']) && !empty($_GET['email'])) {
+    $email = $_GET['email'];
+} else {
+    echo "User not found!";
+    exit();
+}
 
-// Fetch user data
-$user = mysqli_fetch_assoc($result);
-$user_id = $user['USER_ID'];
-$name = $user['Name'];
-$contact = $user['phone'];
+// Fetch user data from the database using the email
+$sql = "SELECT * FROM customer WHERE email = '$email' ";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+    $user = mysqli_fetch_assoc($result);
+    // Assign the values from the database to variables
+    $user_id = $user['USER_ID'];
+    $name = $user['Name'];
+    $contact = $user['phone'];
+} else {
+    echo "User not found!";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,14 +36,16 @@ $contact = $user['phone'];
 <body>
     <!-- Header Section -->
     <header>
-        <div class="header-container">
-            <h1>NeedACar</h1>
-        </div>
+
+        <a href="index.php" style="text-decoration: none;">
+                <h1 class="title" style="color: white;">NeedACar</h1>
+        </a>
         <nav class="nav-bar">
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="deals.php">Deals</a></li>
                 <li><a href="review.php">Reviews</a></li>
+                <li><a href="contact.html">Contacts</a></li>
             </ul>
         </nav>
     </header>
@@ -39,30 +54,28 @@ $contact = $user['phone'];
     <main>
         <section class="user-profile-section">
             <h2>Your Profile</h2>
-            <form action="updateuserprofile.php" method="POST">
                 <!-- User ID -->
                 <div class="profile-details">
                     <label for="user_id">User ID: </label>
-                    <span class="info-box"><?php echo $user_id; ?></span>
+                    <span class="info-box"><?php echo isset($user_id) ? $user_id : ''; ?></span>
                 </div>
 
                 <!-- Name -->
                 <div class="profile-details">
                     <label for="name">Name: </label>
-                    <input type="text" name="name" value="<?php echo $name; ?>" class="info-box" required>
-                    <button type="submit" class="update-btn">Update Name</button>
+                    <span class="info-box"><?php echo isset($name) ? $name : ''; ?></span>
                 </div>
 
                 <!-- Email -->
                 <div class="profile-details">
                     <label for="email">Email: </label>
-                    <span class="info-box"><?php echo $email; ?></span>
+                    <span class="info-box"><?php echo isset($email) ? $email : ''; ?></span>
                 </div>
 
                 <!-- Contact -->
                 <div class="profile-details">
                     <label for="contact">Contact: </label>
-                    <span class="info-box"><?php echo $contact; ?></span>
+                    <span class="info-box"><?php echo isset($contact) ? $contact : ''; ?></span>
                 </div>
             </form>
 

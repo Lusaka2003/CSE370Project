@@ -9,7 +9,7 @@ if (!empty($_POST['email']) && !empty($_POST['Password'])) {
 
     if (mysqli_num_rows($result) > 0) {
         
-        header("Location: userprofile.php");
+        header("Location: userprofile.php?email=" . urlencode($email));
         exit();
 
     } else {

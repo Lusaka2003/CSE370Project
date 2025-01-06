@@ -1,13 +1,14 @@
+/* Basic Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body Styling */
+/* General body and layout settings */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f9;
+  background: white;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -17,54 +18,161 @@ body {
   margin: 0;
 }
 
-/* Header */
+/* Header Section */
 header {
-  width: 100%;
   background-color: #04AA6D;
   color: white;
   padding: 15px 0;
   text-align: center;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-/* Payment Container */
-.payment-container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+/* Navigation Bar */
+.nav-bar {
+  background-color: #333;
+  padding: 10px 0;
   text-align: center;
-  max-width: 500px;
-  width: 90%;
-  margin-top: 50px;
+  border-radius: 5px;
 }
 
-.thank-you-box h2 {
-  font-size: 1.8rem;
+.nav-bar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.nav-bar li {
+  display: inline;
+}
+
+.nav-bar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.nav-bar a:hover {
   color: #04AA6D;
-  margin-bottom: 15px;
+  background-color: white;
 }
 
-.thank-you-box p {
-  font-size: 1.2rem;
-  color: #555;
-  line-height: 1.8;
+/* User Profile Section */
+.user-profile-section {
+  max-width: 600px;
+  width: 600px;
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.7rem;
+  align-items: center;
+}
+
+
+/* Profile Details */
+.profile-details {
+  width: 100%;
+  text-align: left;
+}
+
+.profile-details label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.profile-details span {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+}
+
+/* Select a Car Button */
+.select-car-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.select-car-btn:hover {
+  background-color: #028a5e;
+  transform: translateY(-2px);
+}
+
+/* Logout Button */
+.logout-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
 }
 
 /* Footer */
 footer {
-  width: 100%;
   text-align: center;
+  padding: 10px;
   background-color: #333;
   color: white;
-  padding: 10px 0;
-  margin-top: 30px;
-  position: fixed;
-  bottom: 0;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-bar ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-details span {
+    font-size: 0.8rem;
+  }
+
+  .select-car-btn,
+  .logout-btn {
+    font-size: 0.9rem;
+  }
 }
